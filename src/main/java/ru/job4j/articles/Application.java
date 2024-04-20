@@ -2,8 +2,8 @@ package ru.job4j.articles;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import ru.job4j.articles.service.SimpleArticleService;
-import ru.job4j.articles.service.generator.RandomArticleGenerator;
 import ru.job4j.articles.store.ArticleStore;
 import ru.job4j.articles.store.WordStore;
 
@@ -12,7 +12,7 @@ import java.util.Properties;
 
 public class Application {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Application.class.getSimpleName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(Application.class.getName());
 
     public static final int TARGET_COUNT = 1_000_000;
 
@@ -20,8 +20,7 @@ public class Application {
         var properties = loadProperties();
         var wordStore = new WordStore(properties);
         var articleStore = new ArticleStore(properties);
-        var articleGenerator = new RandomArticleGenerator();
-        var articleService = new SimpleArticleService(articleGenerator);
+        var articleService = new SimpleArticleService();
         articleService.generate(wordStore, TARGET_COUNT, articleStore);
     }
 
